@@ -15,8 +15,8 @@ This script apply the client side validation to all forms once the DOM is loaded
 - **Font-Awesome**: [*Optional*] The script use `font-awesome` plugin (`fa fa-check`) that will add the `check` icon in the input when the validation succeeed or `. *If font-awesome is not installed, the icon won't appear*. (*close enough to glyphicon, but better :)*) https://github.com/FortAwesome/Font-Awesome/
 
 ## Screenshots
-**Success**: https://docs.google.com/file/d/0ByzbHcAxmCyvb2hTamlMaGFTMG8
-**Error**: https://docs.google.com/file/d/0ByzbHcAxmCyveTJMa1hvSzVfalU
+- **Success**: https://docs.google.com/file/d/0ByzbHcAxmCyvb2hTamlMaGFTMG8
+- **Error**: https://docs.google.com/file/d/0ByzbHcAxmCyveTJMa1hvSzVfalU
 
 # Installation
 1. Import the file. Must be imported after judge. `<script scr="<%= assets_path('javascripts/helpers/judge.js')"></script>`
