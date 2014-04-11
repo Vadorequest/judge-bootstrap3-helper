@@ -26,6 +26,7 @@ This script apply the client side validation to all forms once the DOM is loaded
 - **Validation**: Use Bootstrap 3 validation classes. Design based on BootstrapValidator. http://bootstrapvalidator.com/
 - **Icon**: Use Font Awesome, CSS class oriented images. Could also use Glyphicon.
 - **Validate by default**: Don't validate forms that have the html5 `data-novalidate=true`. (`form_for :user, html: { 'data-novalidate' => true }`), bind the validation otherwise.
+- **Confirmation**: The confirmation verification (basically *passwords*) is updated when the main input **or** the confirmation input is updated.
 
 # Customize
 

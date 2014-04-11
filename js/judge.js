@@ -86,6 +86,13 @@
       // Bind - Validate the field if the element has already been checked when we change the value.
       this.$el.on('input', this._generateSelectorOnInput(), (function(_this) {
         return function(e) {
+            // Take care of the confirmation. (password, basically)
+            var id = $(e.currentTarget).attr('id');
+            if(id.indexOf('_confirmation') !== -1){
+                // Validate the input that has the same id without the '_confirmation' part.
+                _this.validateInput(document.getElementById(id.replace('_confirmation', '')));// Don't use jQuery, Judge don't expect a jQuery instance.
+            }
+            // Validate also the input itself.
           return _this.validateInput(e.currentTarget);
         };
       })(this));
@@ -223,22 +230,34 @@
     };
 
     /**
-     * Called when an element is valid.
+     * Called when an element is not valid.
      * Add error class and remove success class/messages.
      *
-     * @param el
-     * @param messages
+     * @param el - Element where the errors appeared.
+     * @param messages - Error messages to display.
      * @returns {*}
      * @private
      */
     FormValidator.prototype._invalid = function(el, messages) {
-      this.findOrCreateMsgItem(el).text(messages.join(', '));
-      this._addDefaultParentClasses(el);
+        // Don't display Judge specific errors.
+        var messagesFiltered = _.filter(messages, function(message) {
+            return message !== 'Request error: 0';
+        });
 
-      $(el).removeClass(INPUT_SUCCESS_CLASS).addClass(INPUT_ERROR_CLASS);
-      $(el).parent().removeClass(PARENT_INPUT_SUCCESS_CLASS).addClass(PARENT_INPUT_ERROR_CLASS);
+        if(messagesFiltered != messages){
+            // But log them.
+            consoleDev('Request error: 0');
+        }
 
-      this._refreshIcon(el, ICON_ERROR);
+        if(messagesFiltered.length){
+            this.findOrCreateMsgItem(el).text(messagesFiltered.join(', '));
+            this._addDefaultParentClasses(el);
+
+            $(el).removeClass(INPUT_SUCCESS_CLASS).addClass(INPUT_ERROR_CLASS);
+            $(el).parent().removeClass(PARENT_INPUT_SUCCESS_CLASS).addClass(PARENT_INPUT_ERROR_CLASS);
+
+            this._refreshIcon(el, ICON_ERROR);
+        }
 
       return $(el);
     };
